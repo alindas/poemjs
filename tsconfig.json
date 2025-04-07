@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "emitDecoratorMetadata": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true, // 使用装饰器
+        "forceConsistentCasingInFileNames": true,
+        "module": "CommonJS", // 编译后使用的模块系统
+        "moduleResolution": "Node",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "skipLibCheck": true,
+        "strictPropertyInitialization": false,
+        "strictNullChecks": false,
+        "noImplicitAny": false,
+        "target": "ESNext" // 编译后使用的语法系统
+    },
+    "include": [
+        "./src/**/*.ts"
+    ]
+}
