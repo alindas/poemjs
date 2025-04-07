@@ -1,9 +1,11 @@
 import fs from 'fs';
-import Koa from 'koa';
+import Koa, { ParameterizedContext } from 'koa';
 import Router from 'koa-router';
 import path from 'path';
 
-import { buildApi, GetApiMetaData } from '../decorator';
+import { buildApi } from '../decorator';
+
+export const AllowedMethods = ['get', 'post', 'put', 'delete']
 
 async function loadAllApiFiles(dir: string,) {
     const items = fs.readdirSync(dir);
@@ -30,25 +32,27 @@ export default async function useRoutes(app: Koa) {
 
     await loadAllApiFiles(`${process.cwd()}/src/api`)
 
-    router.get('/:pre', async ctx => {
-        try {
-            const { api } = buildApi(GetApiMetaData, ctx.request.path)
+    AllowedMethods.forEach(method => {
+        router[method]('/*path', async (ctx: ParameterizedContext) => {
+            try {
+                const api = buildApi(ctx)
 
-            const res = await api.call()
+                const res = await api.call()
 
-            ctx.body = {
-                code: 200,
-                data: res
+                ctx.body = {
+                    code: 200,
+                    data: res
+                }
+            } catch (error) {
+                console.log('lhh-log-:', error)
+                ctx.body = {
+                    code: 404,
+                    data: error.message
+                };
             }
-        } catch (error) {
-            ctx.body = {
-                code: 404,
-                data: error.message
-            };
-        }
+        })
+
     })
-
-
 
     app.use(router.routes())
     app.use(router.allowedMethods())

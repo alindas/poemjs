@@ -1,15 +1,22 @@
+import { ParameterizedContext } from 'koa';
 import Container from 'typedi';
-import { IApi, ReqMetaData } from '../contract/api';
+// import pathToReg from 'path-to-regexp'
 
-export * from './get'
+import { IApi } from '../contract/api';
+import { RequestMetaData } from './request';
 
-export function buildApi(metadata: ReqMetaData, route: string) {
-    const target = metadata[route]
+export * from './request'
+
+export function buildApi(ctx: ParameterizedContext) {
+    const { path, method } = ctx.request
+    console.log('lhh-log-:', ctx.request)
+    const target = RequestMetaData[method.toLowerCase()]?.[path]
     if (!target) {
         throw new Error('req method 404')
     }
 
-    return {
-        api: Container.get<IApi>(target.api)
-    }
+
+    const api = Container.get<IApi>(target.api)
+
+    return api
 }

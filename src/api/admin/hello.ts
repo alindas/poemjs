@@ -1,14 +1,29 @@
 import { Service } from 'typedi'
 
-import { Get } from '../../decorator';
+import { Get, Post } from '../../decorator';
 import { IApi } from '../../contract/api';
 
 @Get("/hello")
 @Service({ transient: true })
-export default class HelloAPI implements IApi {
+class HelloGetAPI implements IApi {
 
     public async call() {
-        return 'hello'
+        return 'hello-get'
     }
 
+}
+
+@Post("/hello")
+@Service({ transient: true })
+class HelloPostAPI implements IApi {
+
+    public async call() {
+        return 'hello-post'
+    }
+
+}
+
+export default {
+    HelloGetAPI,
+    HelloPostAPI
 }

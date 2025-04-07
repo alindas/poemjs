@@ -17,7 +17,9 @@ import useRoutes from './service/use-routes'
 
     await useRoutes(app)
 
-    app.listen(9644)
+    app.listen(9644, () => {
+        console.log('服务启动，端口: 9644')
+    })
 
 
 })();
