@@ -3,7 +3,7 @@ import { Service } from 'typedi';
 
 import { BuildDBOptions, DbFactoryBase } from '../../contract/db-factory-base';
 
-@Service({ id: DbFactoryBase })
+@Service()
 export class DBFactory extends DbFactoryBase {
 
     build(opt: BuildDBOptions) {

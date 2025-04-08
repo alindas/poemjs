@@ -5,6 +5,8 @@ import path from 'path';
 
 import { runApi, RequestMetaData } from '../decorator';
 import { ResponseCode } from '../enum/response-code';
+import { LogFactoryBase } from '../contract/log-factory-base';
+import Container from 'typedi';
 
 export const AllowedMethods = ['get', 'post', 'put', 'delete']
 
@@ -28,8 +30,9 @@ async function loadAllApiFiles(dir: string,) {
     }
 }
 
-export default async function useRoutes(app: Koa) {
+export default async function initRoutes(app: Koa) {
     const router = new Router();
+    const logger = Container.get(LogFactoryBase)
 
     await loadAllApiFiles(`${process.cwd()}/src/api`)
 
@@ -47,6 +50,7 @@ export default async function useRoutes(app: Koa) {
                         }
                     } catch (error) {
                         console.log('lhh-log-:', error)
+                        logger.addField(error.message)
                         ctx.body = {
                             code: ResponseCode.ServiceError,
                             data: error.message
