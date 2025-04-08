@@ -1,11 +1,12 @@
 import 'reflect-metadata';
-
 import Koa from 'koa';
 import koaBody from 'koa-body';
 
 import useRoutes from './service/use-routes'
+import { initIoC } from './service/ioc/init';
 
 (async () => {
+    initIoC()
     const app = new Koa();
 
     app.use(

@@ -9,7 +9,6 @@ export * from './request'
 
 export function runApi(ctx: ParameterizedContext, router: string) {
     const { method } = ctx.request
-    console.log('lhh-log-:', ctx.request, ctx.params)
     const target = RequestMetaData[method.toLowerCase()]?.[router]
     if (!target) {
         throw new Error('Method Not Allowed')

@@ -4,7 +4,7 @@ import { Get, Post } from '../../decorator';
 import { IApi } from '../../contract/api';
 
 @Get("/hello/:userid")
-@Service({ transient: true })
+@Service({ transient: true }) // 瞬态模式：隔离
 class HelloGetAPI implements IApi {
 
     public params: { userid: string }
