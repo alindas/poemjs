@@ -4,6 +4,7 @@ import Router from 'koa-router';
 import path from 'path';
 
 import { runApi, RequestMetaData } from '../decorator';
+import { ResponseCode } from '../enum/response-code';
 
 export const AllowedMethods = ['get', 'post', 'put', 'delete']
 
@@ -41,13 +42,13 @@ export default async function useRoutes(app: Koa) {
                         const res = await runApi(ctx, r)
 
                         ctx.body = {
-                            code: 200,
+                            code: ResponseCode.Success,
                             data: res
                         }
                     } catch (error) {
                         console.log('lhh-log-:', error)
                         ctx.body = {
-                            code: 404,
+                            code: ResponseCode.ServiceError,
                             data: error.message
                         };
                     }
