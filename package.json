@@ -4,10 +4,11 @@
   "description": "nodejs framework",
   "main": "index.ts",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.spec.json",
     "server": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts",
-    "parse": "ts-node src/scripts/parse-excel.ts"
+    "parse": "ts-node src/scripts/parse-excel.ts",
+    "test": "tsc -p tsconfig.spec.json && ts-node src/index.ts"
   },
   "keywords": [
     "nodejs"
@@ -24,6 +25,7 @@
     "koa-body": "^6.0.1",
     "koa-router": "^13.0.1",
     "reflect-metadata": "^0.2.2",
+    "sequelize-typescript": "^2.1.6",
     "typedi": "^0.10.0"
   }
 }
