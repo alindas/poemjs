@@ -2,7 +2,10 @@ export interface ReqOption {
     url: string,
 }
 
-export interface IApi {
+export interface IApi<THeader = any, TParams = any, TBody = any> {
+    header?: THeader;
+    params?: TParams;
+    body?: TBody;
     call(): Promise<any>
 }
 

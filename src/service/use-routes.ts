@@ -3,7 +3,7 @@ import Koa, { ParameterizedContext } from 'koa';
 import Router from 'koa-router';
 import path from 'path';
 
-import { buildApi } from '../decorator';
+import { runApi, RequestMetaData } from '../decorator';
 
 export const AllowedMethods = ['get', 'post', 'put', 'delete']
 
@@ -33,25 +33,27 @@ export default async function useRoutes(app: Koa) {
     await loadAllApiFiles(`${process.cwd()}/src/api`)
 
     AllowedMethods.forEach(method => {
-        router[method]('/*path', async (ctx: ParameterizedContext) => {
-            try {
-                const api = buildApi(ctx)
+        const routers = RequestMetaData[method.toLowerCase()]
+        if (routers) {
+            Object.keys(routers).forEach(r => {
+                router[method](r, async (ctx: ParameterizedContext) => {
+                    try {
+                        const res = await runApi(ctx, r)
 
-                const res = await api.call()
-
-                ctx.body = {
-                    code: 200,
-                    data: res
-                }
-            } catch (error) {
-                console.log('lhh-log-:', error)
-                ctx.body = {
-                    code: 404,
-                    data: error.message
-                };
-            }
-        })
-
+                        ctx.body = {
+                            code: 200,
+                            data: res
+                        }
+                    } catch (error) {
+                        console.log('lhh-log-:', error)
+                        ctx.body = {
+                            code: 404,
+                            data: error.message
+                        };
+                    }
+                })
+            })
+        }
     })
 
     app.use(router.routes())

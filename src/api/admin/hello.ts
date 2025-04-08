@@ -3,12 +3,14 @@ import { Service } from 'typedi'
 import { Get, Post } from '../../decorator';
 import { IApi } from '../../contract/api';
 
-@Get("/hello")
+@Get("/hello/:userid")
 @Service({ transient: true })
 class HelloGetAPI implements IApi {
 
+    public params: { userid: string }
+
     public async call() {
-        return 'hello-get'
+        return 'hello-get:' + this.params.userid
     }
 
 }
