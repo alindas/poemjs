@@ -1,0 +1,7 @@
+database:
+    dialect: mysql
+    host: 192.168.11.82
+    username: root
+    password: root
+    database: test
+
