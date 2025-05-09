@@ -2,10 +2,12 @@ export interface ReqOption {
     url: string,
 }
 
-export interface IApi<THeader = any, TParams = any, TBody = any> {
+export interface IApi<THeader = any, TQuery = any, TParams = any, TBody = any, TFiles = any> {
     header?: THeader;
+    query?: TQuery;
     params?: TParams;
     body?: TBody;
+    files?: TFiles;
     call(): Promise<any>
 }
 

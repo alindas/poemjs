@@ -11,7 +11,7 @@ import { initIoC } from './service/ioc/init';
 
     app.use(
         koaBody({
-            multipart: true,
+            multipart: true, // 支持文件上传
             patchKoa: true
         })
     )

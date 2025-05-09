@@ -8,16 +8,17 @@ import { RequestMetaData } from './request';
 export * from './request'
 
 export function runApi(ctx: ParameterizedContext, router: string) {
-    const { method } = ctx.request
+    const { method, query, body, header, files } = ctx.request
     const target = RequestMetaData[method.toLowerCase()]?.[router]
     if (!target) {
         throw new Error('Method Not Allowed')
     }
-
     const api = Container.get<IApi>(target.api)
     api.params = ctx.params
-    api.body = ctx.body
-    api.header = ctx.header
+    api.query = query
+    api.body = body
+    api.files = files
+    api.header = header
 
     return api.call()
 }

@@ -49,7 +49,6 @@ export default async function initRoutes(app: Koa) {
                             data: res
                         }
                     } catch (error) {
-                        console.log('lhh-log-:', error)
                         logger.addField(error.message)
                         ctx.body = {
                             code: ResponseCode.ServiceError,
