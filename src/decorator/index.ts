@@ -7,6 +7,7 @@ import { RequestMetaData } from './request';
 import { validate } from 'class-validator';
 
 export * from './request'
+export * from './validator'
 
 async function validateDTO(targetCls: any, body: any) {
     const target = new targetCls();

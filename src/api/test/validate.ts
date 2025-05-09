@@ -1,7 +1,6 @@
 import { Service } from 'typedi';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-import { Post } from '../../decorator';
+import { Post, IsNumber, IsString, IsNotEmpty } from '../../decorator';
 import { IApi } from '../../contract/api';
 
 class TestValidateBody {
@@ -12,6 +11,9 @@ class TestValidateBody {
     @IsString()
     @IsNotEmpty()
     public name: string;
+
+    @IsNotEmpty({ message: '性别为男或女' })
+    public gender: string;
 }
 
 
