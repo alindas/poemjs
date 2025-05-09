@@ -5,3 +5,8 @@ database:
     password: root
     database: test
 
+redis:
+    host: 192.168.11.82
+    port: 6379
+    password: root
+

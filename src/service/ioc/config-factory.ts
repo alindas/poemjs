@@ -2,6 +2,7 @@ import { Service } from 'typedi';
 import { parse } from 'yaml';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+
 import { ConfigFactoryBase } from '../../contract/config-factory-base';
 
 
