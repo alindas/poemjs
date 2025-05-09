@@ -1,5 +1,6 @@
 export interface ReqOption {
     url: string,
+    validate?: any
 }
 
 export interface IApi<THeader = any, TQuery = any, TParams = any, TBody = any, TFiles = any> {
@@ -11,12 +12,13 @@ export interface IApi<THeader = any, TQuery = any, TParams = any, TBody = any, T
     call(): Promise<any>
 }
 
-type ApiClass<T> = {
+type ApiClass<T = any> = {
     new(...args: any[]): T
 }
 
 export interface ReqMetaData {
     [route: string]: {
         api: ApiClass<IApi>
+        validate?: ApiClass
     }
 }
