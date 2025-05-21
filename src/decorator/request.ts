@@ -3,7 +3,7 @@ import { ReqMetaData, ReqOption } from '../contract/api';
 const GetApiMetaData: ReqMetaData = Object.create(null)
 const PostApiMetaData: ReqMetaData = Object.create(null)
 
-export const RequestMetaData = {
+export const RequestMetaData: Record<string, ReqMetaData> = {
     get: GetApiMetaData,
     post: PostApiMetaData
 }
